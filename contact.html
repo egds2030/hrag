@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>اتصل بنا | سير للسيارات</title>
+
+  <style>
+    :root {
+      --dark-blue: #071f3d;
+      --deep-blue: #034b87;
+      --main-blue: #0b73bd;
+      --accent-blue: #0b7bd3;
+      --light-gray: #f5f7fa;
+      --white: #ffffff;
+      --text-dark: #1f2937;
+      --muted: #7b8794;
+      --border: #e2e8f0;
+      --green: #00a86b;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Tahoma, Arial, sans-serif;
+      direction: rtl;
+      background: var(--light-gray);
+      color: var(--text-dark);
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .contact-hero {
+      width: 94%;
+      max-width: 1250px;
+      margin: 26px auto 0;
+      border-radius: 24px;
+      padding: 46px;
+      background:
+        linear-gradient(135deg, rgba(7, 31, 61, 0.96), rgba(11, 115, 189, 0.88)),
+        radial-gradient(circle at left, rgba(255,255,255,0.18), transparent 35%);
+      color: var(--white);
+      box-shadow: 0 18px 45px rgba(7, 31, 61, 0.16);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .contact-hero::after {
+      content: "☎";
+      position: absolute;
+      left: 45px;
+      bottom: -35px;
+      font-size: 180px;
+      opacity: 0.08;
+    }
+
+    .contact-hero h1 {
+      margin: 0 0 12px;
+      font-size: 38px;
+    }
+
+    .contact-hero p {
+      margin: 0;
+      max-width: 680px;
+      color: #e8f3ff;
+      line-height: 1.9;
+      font-size: 17px;
+    }
+
+    .contact-page {
+      width: 94%;
+      max-width: 1250px;
+      margin: 24px auto;
+      display: grid;
+      grid-template-columns: 1fr 390px;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .contact-card,
+    .info-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+      border: 1px solid var(--border);
+    }
+
+    .card-title {
+      margin-bottom: 20px;
+    }
+
+    .card-title h2 {
+      margin: 0 0 8px;
+      color: var(--dark-blue);
+      font-size: 24px;
+    }
+
+    .card-title p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 16px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .form-group {
+      display: grid;
+      gap: 7px;
+    }
+
+    .form-group label {
+      font-size: 14px;
+      color: #36516f;
+      font-weight: bold;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: #fbfdff;
+      border-radius: 12px;
+      padding: 13px 14px;
+      outline: none;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--text-dark);
+      transition: 0.25s;
+    }
+
+    .form-group textarea {
+      min-height: 145px;
+      resize: vertical;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 4px rgba(11, 123, 211, 0.09);
+      background: var(--white);
+    }
+
+    .submit-btn {
+      height: 48px;
+      border: 0;
+      border-radius: 13px;
+      background: var(--accent-blue);
+      color: var(--white);
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.25s;
+    }
+
+    .submit-btn:hover {
+      background: #075fa8;
+      transform: translateY(-2px);
+    }
+
+    .contact-info {
+      display: grid;
+      gap: 14px;
+    }
+
+    .info-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 15px;
+      background: #f8fbff;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+    }
+
+    .info-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: #e9f4ff;
+      color: var(--accent-blue);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .info-item h3 {
+      margin: 0 0 5px;
+      color: var(--dark-blue);
+      font-size: 15px;
+    }
+
+    .info-item p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .quick-actions {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .quick-action {
+      height: 46px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-weight: bold;
+      transition: 0.25s;
+    }
+
+    .quick-action.call {
+      background: var(--accent-blue);
+    }
+
+    .quick-action.whatsapp {
+      background: var(--green);
+    }
+
+    .quick-action.email {
+      background: var(--dark-blue);
+    }
+
+    .quick-action:hover {
+      transform: translateY(-2px);
+      opacity: 0.92;
+    }
+
+    .success-message {
+      display: none;
+      padding: 13px 15px;
+      border-radius: 12px;
+      background: #ecfdf5;
+      color: #047857;
+      border: 1px solid #bbf7d0;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 900px) {
+      .contact-page {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-hero {
+        padding: 34px;
+      }
+
+      .contact-hero h1 {
+        font-size: 30px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .contact-hero {
+        width: 92%;
+        padding: 26px;
+        border-radius: 18px;
+      }
+
+      .contact-hero h1 {
+        font-size: 25px;
+      }
+
+      .contact-hero p {
+        font-size: 14px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-card,
+      .info-card {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="header"></div>
+
+  <section class="contact-hero">
+    <h1>اتصل بنا</h1>
+    <p>
+      فريق سير للسيارات جاهز لخدمتك والإجابة على استفساراتك حول الإعلانات، المعارض، السيارات الجديدة والمستعملة.
+    </p>
+  </section>
+
+  <main class="contact-page">
+    <section class="contact-card">
+      <div class="card-title">
+        <h2>أرسل رسالتك</h2>
+        <p>املأ النموذج التالي وسنقوم بالرد عليك في أقرب وقت ممكن.</p>
+      </div>
+
+      <div class="success-message" id="successMessage">
+        تم إرسال رسالتك بنجاح. شكرًا لتواصلك معنا.
+      </div>
+
+      <form class="contact-form" id="contactForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">الاسم الكامل</label>
+            <input type="text" id="name" placeholder="اكتب اسمك" required>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">رقم الجوال</label>
+            <input type="tel" id="phone" placeholder="05xxxxxxxx" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">البريد الإلكتروني</label>
+            <input type="email" id="email" placeholder="example@email.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="subject">نوع الطلب</label>
+            <select id="subject" required>
+              <option value="">اختر نوع الطلب</option>
+              <option>استفسار عام</option>
+              <option>مشكلة في إعلان</option>
+              <option>طلب إضافة معرض</option>
+              <option>اقتراح أو ملاحظة</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="message">الرسالة</label>
+          <textarea id="message" placeholder="اكتب رسالتك هنا..." required></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn">إرسال الرسالة</button>
+      </form>
+    </section>
+
+    <aside class="info-card">
+      <div class="card-title">
+        <h2>بيانات التواصل</h2>
+        <p>يمكنك التواصل معنا مباشرة عبر إحدى القنوات التالية.</p>
+      </div>
+
+      <div class="contact-info">
+        <div class="info-item">
+          <span class="info-icon">📞</span>
+          <div>
+            <h3>رقم الجوال</h3>
+            <p>+966 50 000 0000</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <span class="info-icon">✉️</span>
+          <div>
+            <h3>البريد الإلكتروني</h3>
+            <p>info@seer-cars.com</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <span class="info-icon">📍</span>
+          <div>
+            <h3>الموقع</h3>
+            <p>المملكة العربية السعودية</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <span class="info-icon">⏰</span>
+          <div>
+            <h3>أوقات العمل</h3>
+            <p>يوميًا من 9 صباحًا حتى 10 مساءً</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="quick-actions">
+        <a href="tel:+966500000000" class="quick-action call">اتصال مباشر</a>
+        <a href="https://wa.me/966500000000" class="quick-action whatsapp">تواصل واتساب</a>
+        <a href="mailto:info@seer-cars.com" class="quick-action email">إرسال بريد</a>
+      </div>
+    </aside>
+  </main>
+
+  <div id="footer"></div>
+
+  <script>
+    async function loadTemplate(elementId, filePath) {
+      try {
+        const response = await fetch(filePath);
+
+        if (!response.ok) {
+          throw new Error("فشل تحميل القالب: " + filePath);
+        }
+
+        const html = await response.text();
+        const target = document.getElementById(elementId);
+        target.innerHTML = html;
+
+        const scripts = target.querySelectorAll("script");
+        scripts.forEach((oldScript) => {
+          const newScript = document.createElement("script");
+          newScript.textContent = oldScript.textContent;
+          document.body.appendChild(newScript);
+          oldScript.remove();
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    loadTemplate("header", "header.html");
+    loadTemplate("footer", "footer.html");
+
+    const contactForm = document.getElementById("contactForm");
+    const successMessage = document.getElementById("successMessage");
+
+    contactForm.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const subject = document.getElementById("subject").value.trim();
+      const message = document.getElementById("message").value.trim();
+
+      if (!name || !phone || !email || !subject || !message) {
+        alert("يرجى تعبئة جميع الحقول المطلوبة");
+        return;
+      }
+
+      const phonePattern = /^05[0-9]{8}$/;
+      if (!phonePattern.test(phone)) {
+        alert("يرجى إدخال رقم جوال سعودي صحيح يبدأ بـ 05");
+        return;
+      }
+
+      successMessage.style.display = "block";
+      contactForm.reset();
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+  </script>
+
+</body>
+</html>

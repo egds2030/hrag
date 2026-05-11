@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>سير للسيارات | بيع وشراء السيارات</title>
+
+  <style>
+    :root {
+      --dark-blue: #071f3d;
+      --main-blue: #0b73bd;
+      --accent-blue: #0b7bd3;
+      --light-gray: #f5f7fa;
+      --card-gray: #fafbfc;
+      --white: #ffffff;
+      --text-dark: #1f2937;
+      --muted: #7b8794;
+      --green: #00a86b;
+      --border: #e2e8f0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Tahoma, Arial, sans-serif;
+      direction: rtl;
+      background: var(--light-gray);
+      color: var(--text-dark);
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .container {
+      width: 94%;
+      max-width: 1250px;
+      margin: auto;
+    }
+
+    .hero-banner {
+      width: 94%;
+      max-width: 1250px;
+      height: 360px;
+      margin: 24px auto 0;
+      border-radius: 24px;
+      overflow: hidden;
+      position: relative;
+      background: #061b33;
+      box-shadow: 0 18px 45px rgba(7, 31, 61, 0.18);
+    }
+
+    .banner-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      z-index: 1;
+      transform: scale(1.02);
+    }
+
+    .hero-banner::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background:
+        linear-gradient(90deg, rgba(7, 31, 61, 0.92), rgba(7, 31, 61, 0.68), rgba(7, 31, 61, 0.2)),
+        linear-gradient(0deg, rgba(0, 0, 0, 0.35), transparent);
+      pointer-events: none;
+    }
+
+    .banner-content {
+      position: relative;
+      z-index: 3;
+      height: 100%;
+      padding: 46px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 620px;
+      color: var(--white);
+    }
+
+    .banner-label {
+      width: fit-content;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      color: #dcefff;
+      margin-bottom: 16px;
+      backdrop-filter: blur(8px);
+    }
+
+    .banner-content h1 {
+      font-size: 42px;
+      line-height: 1.5;
+      margin: 0 0 14px;
+      letter-spacing: -1px;
+    }
+
+    .banner-content p {
+      font-size: 17px;
+      line-height: 1.9;
+      margin: 0 0 24px;
+      color: #e8f3ff;
+    }
+
+    .banner-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .banner-btn {
+      min-height: 46px;
+      padding: 0 22px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 14px;
+      transition: 0.25s;
+    }
+
+    .banner-btn.primary {
+      background: var(--accent-blue);
+      color: var(--white);
+      box-shadow: 0 10px 24px rgba(11, 123, 211, 0.35);
+    }
+
+    .banner-btn.primary:hover {
+      background: #075fa8;
+      transform: translateY(-2px);
+    }
+
+    .banner-btn.secondary {
+      background: rgba(255, 255, 255, 0.12);
+      color: var(--white);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(8px);
+    }
+
+    .banner-btn.secondary:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .banner-stats {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 26px;
+    }
+
+    .stat-box {
+      min-width: 110px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(8px);
+    }
+
+    .stat-box strong {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+
+    .stat-box span {
+      font-size: 12px;
+      color: #dcefff;
+    }
+
+    .page {
+      width: 94%;
+      max-width: 1250px;
+      margin: 24px auto;
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .content {
+      background: var(--white);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+    }
+
+    .filters {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 14px;
+    }
+
+    .filter-group {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn,
+    .filter-select {
+      border: 1px solid var(--border);
+      background: var(--white);
+      color: #36516f;
+      border-radius: 12px;
+      padding: 10px 16px;
+      font-size: 14px;
+      cursor: pointer;
+      min-height: 42px;
+    }
+
+    .filter-btn.active {
+      background: #edf5ff;
+      color: var(--main-blue);
+      border-color: #d6e8fa;
+      font-weight: bold;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 10px 0 18px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      color: var(--dark-blue);
+      font-size: 21px;
+    }
+
+    .section-title span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .ads-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .ad-card {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 18px;
+      background: var(--white);
+      border-radius: 16px;
+      padding: 12px;
+      transition: 0.25s;
+      border: 1px solid transparent;
+    }
+
+    .ad-card:nth-child(even) {
+      background: var(--card-gray);
+    }
+
+    .ad-card:hover {
+      border-color: #d7e7f7;
+      box-shadow: 0 8px 22px rgba(7, 31, 61, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .ad-image {
+      width: 150px;
+      height: 118px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, #d8e1ea, #f1f4f7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 44px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .ad-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-width: 0;
+    }
+
+    .ad-title {
+      color: var(--green);
+      font-size: 19px;
+      font-weight: bold;
+      margin: 6px 0 14px;
+      line-height: 1.6;
+    }
+
+    .ad-title:hover {
+      color: #008a58;
+    }
+
+    .ad-details {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .ad-details span {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+    }
+
+    .seller-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #b7cbe0;
+      color: var(--white);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .price {
+      color: #0068bd;
+      font-weight: bold;
+      font-size: 16px;
+      margin-top: 8px;
+    }
+
+    .sidebar {
+      display: grid;
+      gap: 16px;
+    }
+
+    .side-box {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 15px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+    }
+
+    .side-title {
+      display: flex;
+      justify-content: space-between;
+      color: var(--main-blue);
+      font-weight: bold;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand-grid,
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .brand,
+    .quick {
+      height: 72px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #5b6470;
+      font-size: 13px;
+      transition: 0.25s;
+    }
+
+    .brand {
+      font-weight: bold;
+      color: var(--dark-blue);
+    }
+
+    .brand:hover,
+    .quick:hover {
+      border-color: var(--accent-blue);
+      color: var(--accent-blue);
+      background: #f3f9ff;
+    }
+
+    .more-btn {
+      width: 100%;
+      margin-top: 12px;
+      height: 42px;
+      border: 1px solid #9ec5ef;
+      background: var(--white);
+      color: #386fae;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    @media (max-width: 950px) {
+      .hero-banner {
+        height: 420px;
+      }
+
+      .banner-content {
+        padding: 32px;
+        max-width: 100%;
+      }
+
+      .banner-content h1 {
+        font-size: 32px;
+      }
+
+      .page {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        order: -1;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .hero-banner {
+        width: 92%;
+        height: 460px;
+        border-radius: 18px;
+      }
+
+      .banner-content {
+        padding: 24px;
+      }
+
+      .banner-content h1 {
+        font-size: 25px;
+      }
+
+      .banner-content p {
+        font-size: 14px;
+      }
+
+      .banner-stats {
+        gap: 8px;
+      }
+
+      .stat-box {
+        min-width: calc(50% - 8px);
+      }
+
+      .content {
+        padding: 12px;
+      }
+
+      .filters,
+      .section-title {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .ad-card {
+        grid-template-columns: 105px 1fr;
+        gap: 12px;
+      }
+
+      .ad-image {
+        width: 105px;
+        height: 95px;
+        font-size: 34px;
+      }
+
+      .ad-title {
+        font-size: 16px;
+        margin-top: 0;
+      }
+
+      .ad-details {
+        gap: 9px;
+        font-size: 12px;
+      }
+
+      .brand-grid,
+      .quick-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="header"></div>
+
+  <section class="hero-banner">
+    <iframe
+      class="banner-video"
+      src="media/seer_auto_banner_video.html"
+      title="فيديو بنر سير للسيارات"
+      loading="eager"
+      allow="autoplay; fullscreen"
+      aria-hidden="true">
+    </iframe>
+
+    <div class="banner-content">
+      
+
+      
+
+      
+
+     
+
+     
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="page">
+    <section class="content">
+      <div class="filters">
+        <div class="filter-group">
+          <select class="filter-select">
+            <option>كل المناطق</option>
+            <option>الرياض</option>
+            <option>جدة</option>
+            <option>مكة</option>
+            <option>الدمام</option>
+          </select>
+
+          <button class="filter-btn active">القريب</button>
+          <button class="filter-btn">الأحدث</button>
+        </div>
+
+        <div class="filter-group">
+          <button class="filter-btn">سيارات جديدة</button>
+          <button class="filter-btn">سيارات مستعملة</button>
+        </div>
+      </div>
+
+      <div class="section-title">
+        <h2>إعلانات السيارات</h2>
+        <span>أحدث العروض المضافة في سير للسيارات</span>
+      </div>
+
+      <div class="ads-list">
+        <article class="ad-card">
+          <div class="ad-image">🚘</div>
+          <div class="ad-body">
+            <div>
+              <a href="#" class="ad-title">تويوتا كامري 2024 فل كامل للتنازل</a>
+              <div class="price">105,000 ريال</div>
+            </div>
+
+            <div class="ad-details">
+              <span>📍 الرياض</span>
+              <span>🕒 الآن</span>
+              <span><span class="seller-badge">م</span> معرض النخبة</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="ad-card">
+          <div class="ad-image">🚙</div>
+          <div class="ad-body">
+            <div>
+              <a href="#" class="ad-title">نيسان باترول 2023 نظيف جدًا</a>
+              <div class="price">210,000 ريال</div>
+            </div>
+
+            <div class="ad-details">
+              <span>📍 جدة</span>
+              <span>🕒 قبل 12 دقيقة</span>
+              <span><span class="seller-badge">ع</span> عبدالله الحربي</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="ad-card">
+          <div class="ad-image">🚗</div>
+          <div class="ad-body">
+            <div>
+              <a href="#" class="ad-title">هيونداي سوناتا 2022 ممشى قليل</a>
+              <div class="price">72,000 ريال</div>
+            </div>
+
+            <div class="ad-details">
+              <span>📍 الدمام</span>
+              <span>🕒 قبل ساعة</span>
+              <span><span class="seller-badge">س</span> سالم القحطاني</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="ad-card">
+          <div class="ad-image">🚐</div>
+          <div class="ad-body">
+            <div>
+              <a href="#" class="ad-title">فورد إكسبلورر 2021 استخدام شخصي</a>
+              <div class="price">98,500 ريال</div>
+            </div>
+
+            <div class="ad-details">
+              <span>📍 مكة</span>
+              <span>🕒 قبل 3 ساعات</span>
+              <span><span class="seller-badge">ف</span> فهد العتيبي</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="ad-card">
+          <div class="ad-image">🚕</div>
+          <div class="ad-body">
+            <div>
+              <a href="#" class="ad-title">لكزس ES 2020 بحالة ممتازة</a>
+              <div class="price">135,000 ريال</div>
+            </div>
+
+            <div class="ad-details">
+              <span>📍 المدينة</span>
+              <span>🕒 أمس</span>
+              <span><span class="seller-badge">ن</span> ناصر المالكي</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <aside class="sidebar">
+      <div class="side-box">
+        <div class="side-title">
+          <span>تصنيف</span>
+          <span>＋</span>
+        </div>
+
+        <div class="brand-grid">
+          <a href="#" class="brand">TOYOTA</a>
+          <a href="#" class="brand">NISSAN</a>
+          <a href="#" class="brand">FORD</a>
+          <a href="#" class="brand">LEXUS</a>
+          <a href="#" class="brand">CHEVROLET</a>
+          <a href="#" class="brand">BMW</a>
+          <a href="#" class="brand">GMC</a>
+          <a href="#" class="brand">KIA</a>
+          <a href="#" class="brand">HYUNDAI</a>
+        </div>
+
+        <button class="more-btn">عرض المزيد</button>
+      </div>
+
+      <div class="side-box">
+        <div class="side-title">
+          <span>تنقل سريع</span>
+          <span>−</span>
+        </div>
+
+        <div class="quick-grid">
+          <a href="#" class="quick">سيارات جديدة</a>
+          <a href="#" class="quick">سيارات مستعملة</a>
+          <a href="#" class="quick">قطع غيار</a>
+          <a href="#" class="quick">سيارات للتنازل</a>
+          <a href="#" class="quick">معارض</a>
+          <a href="#" class="quick">تمويل</a>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <div id="footer"></div>
+
+  <script>
+    async function loadTemplate(elementId, filePath) {
+      try {
+        const response = await fetch(filePath);
+
+        if (!response.ok) {
+          throw new Error("فشل تحميل القالب: " + filePath);
+        }
+
+        const html = await response.text();
+        const target = document.getElementById(elementId);
+        target.innerHTML = html;
+
+        const scripts = target.querySelectorAll("script");
+        scripts.forEach((oldScript) => {
+          const newScript = document.createElement("script");
+          newScript.textContent = oldScript.textContent;
+          document.body.appendChild(newScript);
+          oldScript.remove();
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    loadTemplate("header", "header.html");
+    loadTemplate("footer", "footer.html");
+
+    document.querySelectorAll(".filter-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        const group = button.parentElement;
+
+        group.querySelectorAll(".filter-btn").forEach((btn) => {
+          btn.classList.remove("active");
+        });
+
+        button.classList.add("active");
+      });
+    });
+  </script>
+
+</body>
+</html>

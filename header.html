@@ -1,0 +1,630 @@
+<style>
+  :root {
+    --dark-blue: #075fa8;
+    --deep-blue: #034b87;
+    --accent-blue: #0b7bd3;
+    --hover-blue: #e9f4ff;
+    --white: #ffffff;
+    --text: #24364b;
+    --muted: #7b8794;
+    --border: #dce5ef;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: "Tahoma", Arial, sans-serif;
+    direction: rtl;
+  }
+
+  .site-header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+  }
+
+  .top-strip {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .top-strip-container {
+    width: 94%;
+    max-width: 1250px;
+    height: 38px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+  }
+
+  .top-nav {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+  }
+
+  .top-nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    transition: 0.25s;
+  }
+
+  .top-nav a:hover {
+    color: var(--dark-blue);
+  }
+
+  .main-bar {
+    background: linear-gradient(90deg, var(--deep-blue), var(--dark-blue));
+  }
+
+  .main-bar-container {
+    width: 94%;
+    max-width: 1250px;
+    min-height: 74px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .brand-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--white);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .logo-circle {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    padding: 4px;
+    background: linear-gradient(135deg, #ffffff, #d7ecff);
+    box-shadow:
+      0 0 0 3px rgba(255, 255, 255, 0.18),
+      0 8px 20px rgba(0, 0, 0, 0.22);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logo-circle img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+  }
+
+  .brand-name {
+    font-size: 25px;
+    font-weight: bold;
+  }
+
+  .brand-subtitle {
+    font-size: 12px;
+    color: #d9efff;
+  }
+
+  .search-area {
+    display: flex;
+    align-items: center;
+    background: var(--white);
+    border-radius: 12px;
+    overflow: hidden;
+    height: 44px;
+    max-width: 620px;
+    width: 100%;
+    margin: auto;
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.12);
+  }
+
+  .search-area input {
+    flex: 1;
+    border: 0;
+    outline: 0;
+    padding: 0 16px;
+    font-size: 14px;
+    color: var(--text);
+  }
+
+  .search-area button {
+    width: 58px;
+    height: 44px;
+    border: 0;
+    background: #064f8d;
+    color: var(--white);
+    cursor: pointer;
+    font-size: 18px;
+    transition: 0.25s;
+  }
+
+  .search-area button:hover {
+    background: #033d70;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .login-btn,
+  .post-btn,
+  .contact-btn,
+  .theme-btn {
+    border: 0;
+    text-decoration: none;
+    border-radius: 9px;
+    height: 40px;
+    padding: 0 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.25s;
+    white-space: nowrap;
+  }
+
+  .login-btn {
+    background: rgba(255, 255, 255, 0.15);
+    color: var(--white);
+  }
+
+  .login-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  .contact-btn {
+    background: rgba(255, 255, 255, 0.96);
+    color: var(--deep-blue);
+    font-weight: bold;
+  }
+
+  .contact-btn:hover {
+    background: #e9f4ff;
+    transform: translateY(-2px);
+  }
+
+  .post-btn {
+    background: #ffc46b;
+    color: #27364a;
+    font-weight: bold;
+  }
+
+  .post-btn:hover {
+    background: #ffb543;
+  }
+
+  .theme-btn {
+    width: 40px;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.15);
+    color: var(--white);
+    font-size: 18px;
+  }
+
+  .category-bar {
+    background: var(--white);
+  }
+
+  .category-container {
+    width: 94%;
+    max-width: 1250px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    overflow-x: auto;
+    padding: 12px 0;
+    scrollbar-width: thin;
+  }
+
+  .category-link {
+    min-width: 92px;
+    text-decoration: none;
+    color: var(--text);
+    background: var(--white);
+    border: 1px solid transparent;
+    border-radius: 14px;
+    padding: 10px 12px;
+    text-align: center;
+    transition: 0.25s;
+    font-size: 13px;
+  }
+
+  .category-link .icon {
+    display: block;
+    font-size: 25px;
+    margin-bottom: 5px;
+  }
+
+  .category-link:hover,
+  .category-link.active {
+    color: var(--dark-blue);
+    background: var(--hover-blue);
+    border-color: #cfe6fb;
+  }
+
+  .mobile-menu-btn {
+    display: none;
+    background: rgba(255, 255, 255, 0.15);
+    color: var(--white);
+    border: 0;
+    width: 42px;
+    height: 40px;
+    border-radius: 9px;
+    font-size: 24px;
+    cursor: pointer;
+  }
+
+  .mobile-overlay {
+    display: none;
+  }
+
+  @media (max-width: 980px) {
+    .contact-btn {
+      display: none;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .top-strip,
+    .category-bar {
+      display: none;
+    }
+
+    .main-bar-container {
+      grid-template-columns: auto 1fr auto;
+      min-height: auto;
+      padding: 10px 0;
+    }
+
+    .brand-logo {
+      gap: 8px;
+    }
+
+    .logo-circle {
+      width: 48px;
+      height: 48px;
+    }
+
+    .brand-name {
+      font-size: 19px;
+    }
+
+    .brand-subtitle {
+      font-size: 11px;
+    }
+
+    .mobile-menu-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .search-area {
+      grid-column: 1 / -1;
+      order: 3;
+      max-width: 100%;
+      height: 42px;
+    }
+
+    .search-area button {
+      height: 42px;
+    }
+
+    .header-actions {
+      justify-content: flex-end;
+    }
+
+    .post-btn {
+      display: none;
+    }
+
+    .mobile-overlay {
+      display: block;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.25s;
+      z-index: 998;
+    }
+
+    .mobile-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mobile-side-menu {
+      position: fixed;
+      top: 0;
+      right: -310px;
+      width: 290px;
+      height: 100vh;
+      background: var(--white);
+      z-index: 1000;
+      padding: 18px;
+      box-shadow: -8px 0 24px rgba(0, 0, 0, 0.18);
+      transition: 0.3s;
+      overflow-y: auto;
+    }
+
+    .mobile-side-menu.active {
+      right: 0;
+    }
+
+    .mobile-menu-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 14px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mobile-menu-title {
+      color: var(--deep-blue);
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .mobile-close-btn {
+      border: 0;
+      background: var(--hover-blue);
+      color: var(--deep-blue);
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .mobile-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .mobile-nav a {
+      text-decoration: none;
+      color: var(--text);
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px 14px;
+      font-size: 14px;
+      transition: 0.25s;
+    }
+
+    .mobile-nav a:hover,
+    .mobile-nav a.active {
+      color: var(--dark-blue);
+      background: var(--hover-blue);
+      border-color: #cfe6fb;
+    }
+
+    .mobile-nav .highlight {
+      background: #ffc46b;
+      color: #27364a;
+      border-color: #ffc46b;
+      font-weight: bold;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .main-bar-container,
+    .top-strip-container,
+    .category-container {
+      width: 92%;
+    }
+
+    .brand-subtitle {
+      display: none;
+    }
+
+    .login-btn {
+      padding: 0 10px;
+      font-size: 13px;
+    }
+
+    .theme-btn {
+      display: none;
+    }
+  }
+</style>
+
+<header class="site-header">
+  <div class="top-strip">
+    <div class="top-strip-container">
+      <nav class="top-nav">
+        <a href="index.html">الرئيسية</a>
+        <a href="#">حراج السيارات</a>
+        <a href="#">سيارات جديدة</a>
+        <a href="#">سيارات مستعملة</a>
+        <a href="#">قطع غيار</a>
+        <a href="#">معارض</a>
+        <a href="#">خدمات</a>
+        <a href="contact.html">اتصل بنا</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="main-bar">
+    <div class="main-bar-container">
+      <a href="index.html" class="brand-logo">
+        <span class="logo-circle">
+          <img src="media/ChatGPT Image .png" alt="شعار سير للسيارات">
+        </span>
+
+        <span class="brand-text">
+          <span class="brand-name">سير</span>
+          <span class="brand-subtitle">للسيارات</span>
+        </span>
+      </a>
+
+      <form class="search-area" id="headerSearchForm">
+        <input type="search" id="headerSearchInput" placeholder="ابحث عن سيارة، موديل، مدينة..." autocomplete="off">
+        <button type="submit" title="بحث">🔍</button>
+      </form>
+
+      <div class="header-actions">
+        <a href="contact.html" class="contact-btn">☎ اتصل بنا</a>
+        <a href="#" class="post-btn">＋ إضافة عرض</a>
+        <a href="#" class="login-btn">دخول ↩</a>
+        <button class="theme-btn" id="themeBtn" title="تبديل الوضع">☾</button>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="فتح القائمة">☰</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="category-bar">
+    <nav class="category-container">
+      <a href="index.html" class="category-link active">
+        <span class="icon">🏠</span>
+        الرئيسية
+      </a>
+
+      <a href="#" class="category-link">
+        <span class="icon">🚗</span>
+        سيارات
+      </a>
+
+      <a href="#" class="category-link">
+        <span class="icon">🚙</span>
+        سيارات جديدة
+      </a>
+
+      <a href="#" class="category-link">
+        <span class="icon">🔁</span>
+        سيارات مستعملة
+      </a>
+
+      <a href="#" class="category-link">
+        <span class="icon">🧰</span>
+        قطع غيار
+      </a>
+
+      <a href="#" class="category-link">
+        <span class="icon">🏢</span>
+        معارض
+      </a>
+
+      <a href="#" class="category-link">
+        <span class="icon">💰</span>
+        عروض وتمويل
+      </a>
+
+      <a href="contact.html" class="category-link">
+        <span class="icon">☎</span>
+        اتصل بنا
+      </a>
+    </nav>
+  </div>
+</header>
+
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
+<aside class="mobile-side-menu" id="mobileSideMenu">
+  <div class="mobile-menu-head">
+    <span class="mobile-menu-title">القائمة</span>
+    <button class="mobile-close-btn" id="mobileCloseBtn" aria-label="إغلاق القائمة">×</button>
+  </div>
+
+  <nav class="mobile-nav">
+    <a href="index.html" class="active">🏠 الرئيسية</a>
+    <a href="#">🚗 حراج السيارات</a>
+    <a href="#">🚙 سيارات جديدة</a>
+    <a href="#">🔁 سيارات مستعملة</a>
+    <a href="#">🧰 قطع غيار</a>
+    <a href="#">🏢 معارض</a>
+    <a href="#">💰 عروض وتمويل</a>
+    <a href="#">🛠 خدمات</a>
+    <a href="contact.html">☎ اتصل بنا</a>
+    <a href="#" class="highlight">＋ إضافة عرض</a>
+  </nav>
+</aside>
+
+<script>
+  const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+  const mobileSideMenu = document.getElementById("mobileSideMenu");
+  const mobileOverlay = document.getElementById("mobileOverlay");
+  const mobileCloseBtn = document.getElementById("mobileCloseBtn");
+  const themeBtn = document.getElementById("themeBtn");
+  const headerSearchForm = document.getElementById("headerSearchForm");
+  const headerSearchInput = document.getElementById("headerSearchInput");
+
+  function openMobileMenu() {
+    mobileSideMenu.classList.add("active");
+    mobileOverlay.classList.add("active");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeMobileMenu() {
+    mobileSideMenu.classList.remove("active");
+    mobileOverlay.classList.remove("active");
+    document.body.style.overflow = "";
+  }
+
+  if (mobileMenuBtn) {
+    mobileMenuBtn.addEventListener("click", openMobileMenu);
+  }
+
+  if (mobileCloseBtn) {
+    mobileCloseBtn.addEventListener("click", closeMobileMenu);
+  }
+
+  if (mobileOverlay) {
+    mobileOverlay.addEventListener("click", closeMobileMenu);
+  }
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeMobileMenu();
+    }
+  });
+
+  if (headerSearchForm && headerSearchInput) {
+    headerSearchForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const query = headerSearchInput.value.trim();
+
+      if (!query) {
+        alert("اكتب كلمة للبحث أولاً");
+        return;
+      }
+
+      alert("تم البحث عن: " + query);
+    });
+  }
+
+  if (themeBtn) {
+    themeBtn.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      themeBtn.textContent = document.body.classList.contains("dark-mode") ? "☀" : "☾";
+    });
+  }
+</script>

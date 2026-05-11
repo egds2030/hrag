@@ -1,0 +1,95 @@
+<style>
+  :root {
+    --dark-blue: #071f3d;
+    --deep-blue: #031529;
+    --light-gray: #f2f4f7;
+    --white: #ffffff;
+  }
+
+  .site-footer {
+    background: linear-gradient(135deg, var(--deep-blue), var(--dark-blue));
+    color: var(--white);
+    padding: 35px 0 15px;
+    margin-top: 50px;
+  }
+
+  .footer-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+
+  .footer-box h3 {
+    margin-bottom: 15px;
+    color: #6fb6ff;
+  }
+
+  .footer-box p,
+  .footer-box a {
+    color: #d9e6f2;
+    font-size: 14px;
+    line-height: 1.8;
+    text-decoration: none;
+    display: block;
+  }
+
+  .footer-box a:hover {
+    color: #ffffff;
+  }
+
+  .footer-bottom {
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    margin-top: 25px;
+    padding-top: 15px;
+    font-size: 14px;
+    color: #d9e6f2;
+  }
+
+  @media (max-width: 768px) {
+    .footer-container {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+  }
+</style>
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-box">
+      <h3>سيارات كم</h3>
+      <p>
+        منصة متخصصة في بيع وشراء السيارات الجديدة والمستعملة بسهولة وأمان، مع خيارات متعددة تناسب جميع الاحتياجات.
+      </p>
+    </div>
+
+    <div class="footer-box">
+      <h3>روابط سريعة</h3>
+      <a href="index.html">الرئيسية</a>
+      <a href="#">سيارات جديدة</a>
+      <a href="#">سيارات مستعملة</a>
+      <a href="#">أضف إعلانك</a>
+    </div>
+
+    <div class="footer-box">
+      <h3>تواصل معنا</h3>
+      <p>البريد: info@carskm.com</p>
+      <p>الهاتف: 966500000000+</p>
+      <p>المملكة العربية السعودية</p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    جميع الحقوق محفوظة © <span id="year"></span> سيارات كم
+  </div>
+</footer>
+
+<script>
+  const year = document.getElementById("year");
+  if (year) {
+    year.textContent = new Date().getFullYear();
+  }
+</script>

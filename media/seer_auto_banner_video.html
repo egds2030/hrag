@@ -1,0 +1,425 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+
+#banner{
+  width:100%;
+  height:460px;
+  background:#0a0c14;
+  position:relative;
+  overflow:hidden;
+  font-family:'Cairo',sans-serif;
+  direction:rtl;
+}
+
+.slide{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  transition:opacity 1.2s ease;
+  display:flex;
+  align-items:stretch;
+}
+.slide.active{opacity:1;}
+
+.slide-img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  filter:brightness(0.55);
+  transform:scale(1.08);
+  transition:transform 6s ease;
+}
+.slide.active .slide-img{
+  transform:scale(1);
+}
+
+.slide-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.3) 55%, transparent 100%);
+}
+
+.slide-content{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:0 44px;
+  gap:10px;
+}
+
+.slide-tag{
+  font-size:11px;
+  font-weight:400;
+  color:#4fc3f7;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  opacity:0;
+  transform:translateY(12px);
+  transition:all 0.7s 0.3s ease;
+}
+.slide.active .slide-tag{opacity:1;transform:translateY(0);}
+
+.slide-title{
+  font-size:38px;
+  font-weight:900;
+  color:#fff;
+  line-height:1.15;
+  opacity:0;
+  transform:translateY(18px);
+  transition:all 0.7s 0.5s ease;
+}
+.slide.active .slide-title{opacity:1;transform:translateY(0);}
+.slide-title span{color:#4fc3f7;}
+
+.slide-sub{
+  font-size:14px;
+  color:rgba(255,255,255,0.65);
+  font-weight:300;
+  opacity:0;
+  transform:translateY(12px);
+  transition:all 0.7s 0.7s ease;
+}
+.slide.active .slide-sub{opacity:1;transform:translateY(0);}
+
+.slide-price{
+  font-size:22px;
+  font-weight:700;
+  color:#fff;
+  margin-top:4px;
+  opacity:0;
+  transform:translateY(12px);
+  transition:all 0.7s 0.9s ease;
+}
+.slide.active .slide-price{opacity:1;transform:translateY(0);}
+.slide-price .currency{font-size:13px;color:#80cbc4;margin-right:4px;}
+
+.slide-btn{
+  margin-top:8px;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:rgba(79,195,247,0.15);
+  border:1px solid rgba(79,195,247,0.5);
+  color:#4fc3f7;
+  font-family:'Cairo',sans-serif;
+  font-size:12px;
+  padding:8px 20px;
+  border-radius:4px;
+  cursor:pointer;
+  width:fit-content;
+  opacity:0;
+  transform:translateY(12px);
+  transition:all 0.7s 1.1s ease;
+}
+.slide.active .slide-btn{opacity:1;transform:translateY(0);}
+
+/* Top bar */
+.top-bar{
+  position:absolute;
+  top:0;left:0;right:0;
+  height:52px;
+  background:rgba(0,0,0,0.65);
+  backdrop-filter:blur(8px);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 24px;
+  z-index:20;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.logo{
+  font-size:20px;
+  font-weight:900;
+  color:#fff;
+  letter-spacing:2px;
+}
+.logo span{color:#4fc3f7;}
+.logo-en{font-size:10px;color:rgba(255,255,255,0.4);letter-spacing:3px;display:block;margin-top:-3px;}
+.top-pills{display:flex;gap:16px;align-items:center;}
+.pill{
+  font-size:11px;color:rgba(255,255,255,0.55);
+  display:flex;align-items:center;gap:5px;
+}
+.pill-dot{width:5px;height:5px;border-radius:50%;background:#4fc3f7;}
+
+/* Bottom bar */
+.bottom-bar{
+  position:absolute;
+  bottom:0;left:0;right:0;
+  height:52px;
+  background:rgba(0,0,0,0.75);
+  backdrop-filter:blur(8px);
+  display:flex;
+  align-items:center;
+  padding:0 24px;
+  z-index:20;
+  border-top:1px solid rgba(255,255,255,0.06);
+  gap:14px;
+}
+
+/* Thumbnails nav */
+.thumbs{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  flex:1;
+  overflow:hidden;
+}
+.thumb-item{
+  width:58px;height:36px;
+  border-radius:4px;
+  overflow:hidden;
+  border:1.5px solid transparent;
+  cursor:pointer;
+  flex-shrink:0;
+  transition:border-color 0.3s, transform 0.3s;
+  position:relative;
+}
+.thumb-item img{width:100%;height:100%;object-fit:cover;filter:brightness(0.6);transition:filter 0.3s;}
+.thumb-item.active{border-color:#4fc3f7;transform:scale(1.08);}
+.thumb-item.active img{filter:brightness(0.9);}
+
+/* Progress bar */
+.progress-wrap{
+  position:absolute;
+  bottom:52px;left:0;right:0;
+  height:2px;
+  background:rgba(255,255,255,0.08);
+  z-index:20;
+}
+.progress-bar{
+  height:100%;
+  background:#4fc3f7;
+  width:0%;
+  transition:width 0.1s linear;
+}
+
+/* Counter */
+.counter{
+  color:rgba(255,255,255,0.4);
+  font-size:11px;
+  min-width:36px;
+  text-align:center;
+}
+.counter span{color:#fff;font-weight:700;}
+
+/* Play/Pause */
+.play-btn{
+  width:32px;height:32px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,0.2);
+  background:rgba(255,255,255,0.07);
+  color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  flex-shrink:0;
+  font-size:13px;
+  transition:background 0.2s;
+}
+.play-btn:hover{background:rgba(255,255,255,0.15);}
+
+/* Side decorative line */
+.side-line{
+  position:absolute;
+  right:0;top:52px;bottom:52px;
+  width:3px;
+  background:rgba(79,195,247,0.15);
+  z-index:10;
+}
+.side-line-fill{
+  position:absolute;
+  top:0;left:0;right:0;
+  background:#4fc3f7;
+  width:100%;
+  height:0%;
+  transition:height 0.1s linear;
+}
+
+/* Dot indicators */
+.dots{
+  display:flex;gap:6px;align-items:center;
+  margin-right:auto;
+}
+.dot-item{
+  width:6px;height:6px;border-radius:50%;
+  background:rgba(255,255,255,0.25);
+  cursor:pointer;transition:all 0.3s;
+}
+.dot-item.active{background:#4fc3f7;width:18px;border-radius:3px;}
+</style>
+
+<div id="banner">
+  <div class="top-bar">
+    <div class="logo">
+      <span>سير</span> للسيارات
+      <div class="logo-en">SEER MOTORS</div>
+    </div>
+    <div class="top-pills">
+      <div class="pill"><div class="pill-dot"></div>أكثر من ٢٠٠ سيارة</div>
+      <div class="pill"><div class="pill-dot" style="background:#a5d6a7"></div>ضمان شامل</div>
+      <div class="pill"><div class="pill-dot" style="background:#ffcc80"></div>تمويل ميسر</div>
+    </div>
+  </div>
+
+  <div id="slides-container"></div>
+
+  <div class="side-line"><div class="side-line-fill" id="sideFill"></div></div>
+
+  <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+
+  <div class="bottom-bar">
+    <div class="play-btn" id="playBtn"><i class="ti ti-player-pause"></i></div>
+    <div class="thumbs" id="thumbsRow"></div>
+    <div class="dots" id="dotsRow"></div>
+    <div class="counter"><span id="curNum">1</span> / <span id="totNum">6</span></div>
+  </div>
+</div>
+
+<script>
+const slides = [
+  {
+    img: '/mnt/user-data/uploads/1778454182218_image.png',
+    tag: 'SUV فاخر',
+    title: 'تويوتا\nلاند كروزر',
+    sub: 'موديل ٢٠٢٢ — فل كامل — قطعت ٤٥,٠٠٠ كم',
+    price: '٣٢٠,٠٠٠',
+    btn: 'تفاصيل السيارة'
+  },
+  {
+    img: '/mnt/user-data/uploads/1778454114754_image.png',
+    tag: 'سيدان اقتصادية',
+    title: 'جيلي\nإمجراند',
+    sub: 'موديل ٢٠٢١ — نظيفة جداً — فحص كامل',
+    price: '٩٠,٠٠٠',
+    btn: 'تفاصيل السيارة'
+  },
+  {
+    img: '/mnt/user-data/uploads/1778454182218_image.png',
+    tag: 'بيك أب قوي',
+    title: 'تويوتا\nهايلوكس',
+    sub: 'موديل ٢٠٢٠ — ٤ × ٤ — جاهزة للسفر',
+    price: '١٥٠,٠٠٠',
+    btn: 'تفاصيل السيارة'
+  },
+  {
+    img: '/mnt/user-data/uploads/1778454114754_image.png',
+    tag: 'SUV عائلي',
+    title: 'فورد\nإكسبلورر',
+    sub: 'موديل ٢٠١٩ — ٧ مقاعد — محرك V6',
+    price: '١٩٠,٠٠٠',
+    btn: 'تفاصيل السيارة'
+  },
+  {
+    img: '/mnt/user-data/uploads/1778454182218_image.png',
+    tag: 'SUV أمريكي',
+    title: 'جي إم سي\nيوكون',
+    sub: 'موديل ٢٠٢١ — دنالي — فل أوبشن',
+    price: '٢٤٠,٠٠٠',
+    btn: 'تفاصيل السيارة'
+  },
+  {
+    img: '/mnt/user-data/uploads/1778454114754_image.png',
+    tag: 'كلاسيك قوي',
+    title: 'شيفرولية\nتاهو',
+    sub: 'موديل ٢٠٢٠ — LS — محرك V8',
+    price: '٢١٠,٠٠٠',
+    btn: 'تفاصيل السيارة'
+  }
+];
+
+const container = document.getElementById('slides-container');
+const thumbsRow = document.getElementById('thumbsRow');
+const dotsRow = document.getElementById('dotsRow');
+const progressBar = document.getElementById('progressBar');
+const sideFill = document.getElementById('sideFill');
+const playBtn = document.getElementById('playBtn');
+const curNum = document.getElementById('curNum');
+const totNum = document.getElementById('totNum');
+
+totNum.textContent = slides.length;
+
+slides.forEach((s, i) => {
+  const slide = document.createElement('div');
+  slide.className = 'slide' + (i === 0 ? ' active' : '');
+  slide.id = 'sl' + i;
+
+  const titleLines = s.title.split('\n');
+  const titleHtml = titleLines.length > 1
+    ? `${titleLines[0]}<br><span>${titleLines[1]}</span>`
+    : `<span>${titleLines[0]}</span>`;
+
+  slide.innerHTML = `
+    <img class="slide-img" src="${s.img}" alt="${s.tag}">
+    <div class="slide-overlay"></div>
+    <div class="slide-content">
+      <div class="slide-tag">${s.tag}</div>
+      <div class="slide-title">${titleHtml}</div>
+      <div class="slide-sub">${s.sub}</div>
+      <div class="slide-price"><span class="currency">ريال سعودي</span>${s.price}</div>
+      <div class="slide-btn"><i class="ti ti-arrow-left" style="font-size:14px"></i>${s.btn}</div>
+    </div>
+  `;
+  container.appendChild(slide);
+
+  const thumb = document.createElement('div');
+  thumb.className = 'thumb-item' + (i === 0 ? ' active' : '');
+  thumb.id = 'th' + i;
+  thumb.innerHTML = `<img src="${s.img}" alt="">`;
+  thumb.onclick = () => goTo(i, true);
+  thumbsRow.appendChild(thumb);
+
+  const dot = document.createElement('div');
+  dot.className = 'dot-item' + (i === 0 ? ' active' : '');
+  dot.id = 'dt' + i;
+  dot.onclick = () => goTo(i, true);
+  dotsRow.appendChild(dot);
+});
+
+let current = 0;
+let playing = true;
+let progress = 0;
+let raf = null;
+const DURATION = 5000;
+let lastTime = null;
+
+function goTo(idx, manual = false) {
+  document.getElementById('sl' + current).classList.remove('active');
+  document.getElementById('th' + current).classList.remove('active');
+  document.getElementById('dt' + current).classList.remove('active');
+  current = (idx + slides.length) % slides.length;
+  document.getElementById('sl' + current).classList.add('active');
+  document.getElementById('th' + current).classList.add('active');
+  document.getElementById('dt' + current).classList.add('active');
+  curNum.textContent = current + 1;
+  progress = 0;
+  lastTime = null;
+}
+
+function tick(ts) {
+  if (!playing) { raf = requestAnimationFrame(tick); return; }
+  if (!lastTime) lastTime = ts;
+  const delta = ts - lastTime;
+  lastTime = ts;
+  progress += delta / DURATION * 100;
+  if (progress >= 100) { progress = 0; goTo(current + 1); }
+  const p = Math.min(progress, 100);
+  progressBar.style.width = p + '%';
+  sideFill.style.height = p + '%';
+  raf = requestAnimationFrame(tick);
+}
+raf = requestAnimationFrame(tick);
+
+playBtn.onclick = () => {
+  playing = !playing;
+  playBtn.innerHTML = playing
+    ? '<i class="ti ti-player-pause"></i>'
+    : '<i class="ti ti-player-play"></i>';
+};
+</script>
